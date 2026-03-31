@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZION | Elite Analytics Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #030303;
+            --card-bg: rgba(20, 20, 25, 0.7);
+            --gold: #d4af37;
+            --gold-bright: #f1d371;
+            --teal: #00f2ff;
+            --text-gray: #a0aec0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        /* --- Live Golden Snow/Drop Layer --- */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #030303 100%);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- Luxury Header --- */
+        header {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            perspective: 1000px;
+        }
+
+        .hero-name {
+            font-family: 'Cinzel', serif;
+            font-size: 6rem;
+            letter-spacing: 15px;
+            background: linear-gradient(to bottom, var(--gold-bright), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
+            animation: tracking-in-expand 1.5s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+        }
+
+        .tagline {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--text-gray);
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        /* --- The Scroll Effect Container --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        /* --- Scroll-Activated Card --- */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            transition: all 0.6s ease-out;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .card.reveal {
+            opacity: 1;
+            transform: translateY(0);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.05);
+        }
+
+        .card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+            background: rgba(30, 30, 35, 0.9);
+        }
+
+        .portfolio-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 200;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.6;
+            animation: tracking-in-expand 2s ease;
+        }
+
+        .badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 6px 15px;
+            border-radius: 50px;
+            margin-bottom: 25px;
+            display: inline-block;
+            letter-spacing: 1px;
+        }
+
+        .badge-pbi { background: rgba(0, 242, 255, 0.15); color: var(--teal); border: 1px solid var(--teal); }
+        .badge-xls { background: rgba(212, 175, 55, 0.15); color: var(--gold); border: 1px solid var(--gold); }
+        .badge-sql { background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid #444; }
+
+        h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        .view-link {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .view-link::after {
+            content: ' →';
+            margin-left: 10px;
+            transition: 0.3s;
+        }
+
+        .view-link:hover { color: var(--gold); }
+        .view-link:hover::after { margin-left: 20px; }
+
+        @keyframes tracking-in-expand {
+            0% { letter-spacing: -0.5em; opacity: 0; }
+            40% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 100px 20px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <header>
+        <span class="portfolio-text">Portfolio</span>
+        <div class="tagline">Data Analyst </div>
+        <h1 class="hero-name">DEV MEVADA</h1>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            <div class="card">
+                <span class="badge badge-pbi">Power BI</span>
+                <h3>Strategic Sales Hub</h3>
+                <p>High-level dashboarding with complex DAX for YOY revenue growth and market share visualization.</p>
+                <a href="asset/airplane1.pbix" class="view-link">Explore Dashboard</a>
+            </div>
+
+            <div class="card">
+                <span class="badge badge-pbi">Power BI</span>
+                <h3>Executive Supply Audit</h3>
+                <p>Interactive reporting focused on operational bottlenecks and logistics cost-optimization.</p>
+                <a href="asset/ecommerce.pbix" class="view-link">Explore Dashboard</a>
+            </div>
+
+            <div class="card">
+                <span class="badge badge-xls">Excel / MIS</span>
+                <h3>Automated MIS Engine</h3>
+                <p>Zero-manual input reporting system leveraging Power Query and VBA macro integrations.</p>
+                <a href="asset/Business_Sales_Analysis (1).xlsx" class="view-link">View Project</a>
+            </div>
+
+            <div class="card">
+                <span class="badge badge-xls">Excel / MIS</span>
+                <h3>Dynamic Budget Modeler</h3>
+                <p>Sophisticated financial tracker with Pivot-driven scenario analysis for quarterly forecasting.</p>
+                <a href="asset/Corporate_Industry_Dataset (1).xlsx" class="view-link">View Project</a>
+            </div>
+
+            <div class="card">
+                <span class="badge badge-xls">Excel / MIS</span>
+                <h3>Inventory Control Matrix</h3>
+                <p>Automated stock-keeping system with conditional formatting alerts and pricing analysis.</p>
+                <a href="asset/Food_Beverage_Dashboard (1).xlsx" class="view-link">View Project</a>
+            </div>
+
+            <div class="card">
+                <span class="badge badge-sql">SQL</span>
+                <h3>Relational Data Architect</h3>
+                <p>Structural schema design with optimized indexing for large-scale retail databases.</p>
+                <a href="#" class="view-link">Review Queries</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p style="color: var(--gold); letter-spacing: 5px; font-weight: bold; margin-bottom: 20px;">ZION • 2026</p>
+        <p style="font-size: 0.7rem; color: #444;"> अहमदाबाद, गुजरात | AHMEDABAD, INDIA </p>
+    </footer>
+
+    <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let drops = [];
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Drop {
+        constructor() {
+            this.init();
+        }
+        init() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 0.5;
+            // REDUCED SPEED: Now between 0.1 and 0.4 for a very calm effect
+            this.speed = Math.random() * 0.3 + 0.1; 
+            this.opacity = Math.random() * 0.4 + 0.1;
+            this.wind = (Math.random() - 0.5) * 0.1; 
+        }
+        update() {
+            this.y += this.speed;
+            this.x += this.wind;
+            if (this.y > canvas.height) {
+                this.y = -10;
+                this.x = Math.random() * canvas.width;
+            }
+        }
+        draw() {
+            ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+
+    function createDrops() {
+        for (let i = 0; i < 150; i++) {
+            drops.push(new Drop());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drops.forEach(drop => {
+            drop.update();
+            drop.draw();
+        });
+        requestAnimationFrame(animate);
+    }
+
+    createDrops();
+    animate();
+
+    const observerOptions = { threshold: 0.2 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.card').forEach(card => {
+        observer.observe(card);
+    });
+</script>
+
+</body>
+</html>
